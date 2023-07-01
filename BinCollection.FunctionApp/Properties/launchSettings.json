@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "BinCollection.FunctionApp": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7237",
+      "launchBrowser": false
+    }
+  }
+}
