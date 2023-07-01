@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 var hostBuilder = new HostBuilder()
     .ConfigureFunctionsWorkerDefaults(x => x.UseMiddleware<ApiKeyMiddleware>())
-    .ConfigureAppConfiguration(x => x.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true))
+    .ConfigureAppConfiguration(x => x.AddJsonFile("appsettings.json"))
     .ConfigureLogging(x => x.AddConsole());
 
 hostBuilder.ConfigureServices(serviceCollection =>
