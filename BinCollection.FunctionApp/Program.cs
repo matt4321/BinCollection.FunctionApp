@@ -7,20 +7,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 var hostBuilder = new HostBuilder()
-    .ConfigureFunctionsWorkerDefaults(functionsWorkerApplicationBuilder =>
-    {
-        functionsWorkerApplicationBuilder.UseMiddleware<ApiKeyMiddleware>();
-    })
-    .ConfigureAppConfiguration(configurationBuilder =>
-    {
-        configurationBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-    })
-    .ConfigureLogging(loggingBuilder =>
-    {
-        loggingBuilder.AddConsole();
-    });
+    .ConfigureFunctionsWorkerDefaults(x => x.UseMiddleware<ApiKeyMiddleware>())
+    .ConfigureAppConfiguration(x => x.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true))
+    .ConfigureLogging(x => x.AddConsole());
 
-hostBuilder.ConfigureServices((hostBuilderContext, serviceCollection) =>
+hostBuilder.ConfigureServices(serviceCollection =>
 {
     serviceCollection.AddTransient<IBinCollectionHttpClient, BinCollectionHttpClient>();
 
