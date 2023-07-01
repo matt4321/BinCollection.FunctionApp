@@ -2,7 +2,6 @@
 using BinCollection.FunctionApp.Helpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using static Google.Protobuf.WellKnownTypes.Field.Types;
 
 namespace BinCollection.FunctionApp.Services
 {
