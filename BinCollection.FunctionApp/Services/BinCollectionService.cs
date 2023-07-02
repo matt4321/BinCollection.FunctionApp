@@ -57,7 +57,7 @@ namespace BinCollection.FunctionApp.Services
 
             var binCollectionMessage = $"Hey Matt! The next collection is {nextBinCollectionDate:dd/MM/yyyy}, it's for {nextBinCollectionText}";
             
-            _textService.SendText(binCollectionMessage);
+            await _textService.SendText(binCollectionMessage);
         }
 
         private string ConstructBinCollectionTypeText(List<string> binCollectionTypes)
