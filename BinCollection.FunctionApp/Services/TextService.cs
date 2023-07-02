@@ -20,16 +20,21 @@ namespace BinCollection.FunctionApp.Services
             _logger = logger;
         }
 
-        public void SendText(string textMessage)
+        public async Task SendText(string textMessage)
         {
             try
             {
                 TwilioClient.Init(_accountSid, _authToken);
-                _ = MessageResource.Create(
+                var message = await MessageResource.CreateAsync(
                     body: textMessage,
                     from: new PhoneNumber("Bin Service"),
                     to: new PhoneNumber(_toPhoneNumber)
                 );
+
+                if (message.ErrorCode is not null)
+                {
+                    _logger.LogError("Error sending bin collection text with result {errorMessage}", message.ErrorMessage);
+                }
             }
             catch (Exception ex)
             {

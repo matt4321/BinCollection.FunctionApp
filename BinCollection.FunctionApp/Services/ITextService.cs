@@ -2,6 +2,6 @@
 {
     public interface ITextService
     {
-        void SendText(string textMessage);
+        Task SendText(string textMessage);
     }
 }
