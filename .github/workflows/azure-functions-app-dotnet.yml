@@ -12,7 +12,7 @@ env:
 jobs:
   build-and-deploy:
     runs-on: windows-latest
-    environment: dev
+    environment: prod
     steps:
     - name: 'Checkout GitHub Action'
       uses: actions/checkout@v3
@@ -21,6 +21,17 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
+    
+    - name: App Settings Variable Substitution
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: '${{env.DOTNET_ROOT}}/BinCollection.FunctionApp/appsettings.json'
+      env:
+        Uprn: ${{ secrets.Uprn }}
+        ToPhoneNumber: ${{ secrets.ToPhoneNumber }}
+        X-BinCollection-Api-Key: ${{ secrets.X-BinCollection-Api-Key }}
+        Twilio.AccountSid: ${{ secrets.TwilioAccountSid }}
+        Twilio.AuthToken: ${{ secrets.TwilioAuthToken }}
 
     - name: 'Resolve Project Dependencies Using Dotnet'
       shell: pwsh
