@@ -8,6 +8,7 @@ namespace BinCollection.FunctionApp.Middleware
     public class ApiKeyMiddleware : IFunctionsWorkerMiddleware
     {
         private readonly IConfiguration _configuration;
+        private readonly string timerTriggerEntryPoint = "BinCollection.FunctionApp.BinCollectionFunction.RunBinCollectionScheduleCheck";
 
         public ApiKeyMiddleware(IConfiguration configuration) 
         {
@@ -16,7 +17,7 @@ namespace BinCollection.FunctionApp.Middleware
 
         public async Task Invoke(FunctionContext context, FunctionExecutionDelegate next)
         {
-            if (context.FunctionDefinition.EntryPoint == "BinCollection.FunctionApp.BinCollectionFunction.RunBinCollectionScheduleCheck")
+            if (context.FunctionDefinition.EntryPoint == timerTriggerEntryPoint)
             {
                 await next(context);
                 return;
