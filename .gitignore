@@ -363,7 +363,7 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # appsettings
-/BinCollection.FunctionApp/appsettings.local.json
+/BinCollection.FunctionApp/appsettings.Development.json
 /BinCollection.FunctionApp/Properties/ServiceDependencies/
 /BinCollection.FunctionApp/Properties/serviceDependencies.*.json
 /BinCollection.FunctionApp/Properties/serviceDependencies.json
