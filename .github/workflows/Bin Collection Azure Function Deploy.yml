@@ -27,11 +27,11 @@ jobs:
       with:
         files: '${{env.DOTNET_ROOT}}/BinCollection.FunctionApp/appsettings.json'
       env:
-        Uprn: ${{ secrets.Uprn }}
-        ToPhoneNumber: ${{ secrets.ToPhoneNumber }}
-        X-BinCollection-Api-Key: ${{ secrets.X-BinCollection-Api-Key }}
-        Twilio.AccountSid: ${{ secrets.TwilioAccountSid }}
-        Twilio.AuthToken: ${{ secrets.TwilioAuthToken }}
+        Uprn: ${{ secrets.UPRN }}
+        ToPhoneNumber: ${{ secrets.TOPHONENUMBER }}
+        X-BinCollection-Api-Key: ${{ secrets.XBINCOLLECTIONAPIKEY }}
+        Twilio.AccountSid: ${{ secrets.TWILIOACCOUNTSID }}
+        Twilio.AuthToken: ${{ secrets.TWILIOAUTHTOKEN }}
 
     - name: 'Resolve Project Dependencies Using Dotnet'
       shell: pwsh
