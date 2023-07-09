@@ -1,0 +1,49 @@
+name: Bin Collection Function App Azure Deploy
+
+on:
+  push:
+    branches: ["master"]
+
+env:
+  AZURE_FUNCTIONAPP_NAME: 'BinCollectionFA' 
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'       
+  DOTNET_VERSION: '6.0.x'                  
+
+jobs:
+  build-and-deploy:
+    runs-on: windows-latest
+    environment: prod
+    steps:
+    - name: 'Checkout GitHub Action'
+      uses: actions/checkout@v3
+      
+    - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+    
+    - name: App Settings Variable Substitution
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: '${{env.DOTNET_ROOT}}/BinCollection.FunctionApp/appsettings.json'
+      env:
+        Uprn: ${{ secrets.UPRN }}
+        ToPhoneNumber: ${{ secrets.TOPHONENUMBER }}
+        X-BinCollection-Api-Key: ${{ secrets.XBINCOLLECTIONAPIKEY }}
+        Twilio.AccountSid: ${{ secrets.TWILIOACCOUNTSID }}
+        Twilio.AuthToken: ${{ secrets.TWILIOAUTHTOKEN }}
+
+    - name: 'Resolve Project Dependencies Using Dotnet'
+      shell: pwsh
+      run: |
+        pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+        dotnet build --configuration Release --output ./output
+        popd
+
+    - name: 'Run Azure Functions Action'
+      uses: Azure/functions-action@v1
+      id: fa
+      with:
+        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+        package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
+        publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
