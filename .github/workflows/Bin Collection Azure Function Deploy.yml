@@ -1,6 +1,7 @@
 name: Bin Collection Function App Azure Deploy
 
 on:
+  workflow_dispatch:
   push:
     branches: ["master"]
 
