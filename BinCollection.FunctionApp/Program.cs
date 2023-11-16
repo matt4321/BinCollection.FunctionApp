@@ -11,7 +11,7 @@ var hostBuilder = new HostBuilder()
     .ConfigureAppConfiguration((h, c) => 
     {
         c.AddJsonFile("appsettings.json", optional: true);
-        c.AddJsonFile($"appsettings.{h.HostingEnvironment.EnvironmentName}.json", optional: true);
+        c.AddJsonFile($"local.settings.json", optional: true);
     })
     .ConfigureLogging(x => x.AddConsole());
 
